@@ -1,5 +1,5 @@
-# 🏬 오픈마켓
-> 프로젝트 기간: 2022.05.09 ~ 2022.05.20 <br>
+# 🏬 오픈마켓 I, II
+> 프로젝트 기간: 2022.05.09 ~ 2022.06.03 <br>
 > 팀원: [Donnie](https://github.com/westeastyear), [우롱차](https://github.com/dnwhd0112)
 > 리뷰어: [또치](https://github.com/TTOzzi)
 
@@ -7,18 +7,38 @@
 **"서버에서 제공하는 `API`를 받아와서 사용자에게 원하는 형식(LIST, GRID)으로 뷰를 그려 상품의 정보를 제공하는 프로젝트"**
 
 ## 📺 프로젝트 실행화면
-<img src="https://user-images.githubusercontent.com/74251593/168963325-a33f1326-5568-4af6-a77d-455475d7e042.gif" width="60%">
+|레이아웃변경(List, Grid)|사진등록|pull to refresh|
+|:---:|:---:|:---:|
+|<img src="https://user-images.githubusercontent.com/74251593/185878258-82b1d822-71f7-48f4-af3c-449174fe58eb.gif">|<img src="https://user-images.githubusercontent.com/74251593/185881045-ca366cd4-d44a-4661-8ec7-07d6bf93ce48.gif">|<img src="https://user-images.githubusercontent.com/74251593/185883527-020628c8-e8a9-4897-b845-6d22e036b2f4.gif">|
+
+|상품등록|DetailView이동|DetailView 구성|
+|:---:|:---:|:---:|
+|<img src="https://user-images.githubusercontent.com/74251593/185882568-fc96f293-9ccf-4e18-8c8b-691086b4e72b.gif">|<img src="https://user-images.githubusercontent.com/74251593/185879008-0f415188-2840-4bfd-8ce3-f874d3ceb43b.gif">|<img src="https://user-images.githubusercontent.com/74251593/185880509-437c579a-0ed8-4169-8cb6-4014a8a90384.gif">|
+
+<br>
 
 ## 👀 PR
 
+### 오픈마켓 I
+
 [STEP 1](https://github.com/yagom-academy/ios-open-market/pull/140)
 
-[STEP 2]()
+[STEP 2](https://github.com/yagom-academy/ios-open-market/pull/148)
+
+### 오픈마켓 II
+
+[STEP 1](https://github.com/yagom-academy/ios-open-market/pull/162)
+
+[STEP 2](https://github.com/yagom-academy/ios-open-market/pull/171)
+
+<br>
 
 ## 🛠 개발환경 및 라이브러리
 - [![swift](https://img.shields.io/badge/swift-5.0-orange)]()
 - [![xcode](https://img.shields.io/badge/Xcode-13.1-blue)]()
 - [![iOS](https://img.shields.io/badge/iOS-15.0-red)]()
+
+<br>
 
 ## 🔑 키워드
 
@@ -44,7 +64,9 @@
 - `NSMutableAttributedString`
 - `prepareForReuse`
 - `activityIndicator`
+- `multipart-form`
 
+<br>
 
 ## 📑 구현내용
 
@@ -57,7 +79,9 @@
 - `CodingKeys`와 `init(from: decoder)`을 사용하여 디코딩
 - `session`과 `networkable`을 프로토콜로 선언하여 활용 `session.dataTask`를 활용하여 서버와 통신하고 `completeHandler`와 `errorHandler`를 사용하여 비동기로 통신
 - `completeHandler`와 `errorHandler`에 `Mock Session`으로부터 특정값을 전달하는 방식으로 진행
+- `multipart-form`을 활용하여 이미지/텍스트 데이터 `POST`
 
+<br>
 
 ## 📖 학습내용
 - `Mock` 테스트 방식에 대한 이해
@@ -65,10 +89,13 @@
 - `CollectionView` 및 `CollectionViewListCell`을 구현 및 설계하는 방식에 대한 이해
 - `activityIndicator`를 활용하여 로딩중을 표시하는 방법에 대한 이해
 - `CollectionViewCell`에서 `prepareForReuse()`를 오버라이드 하여 재사용 셀을 초기화
+- `multipart-form`의 데이터 전달 형식의 대한 이해 
+
+<br>
 
 ## 🧐 STEP별 고민한 점 및 해결한 방법
 
-## [STEP 1]
+## 오픈마켓 I [[STEP 1]](https://github.com/yagom-academy/ios-open-market/pull/140)
 ### 1. `requestData` 구현시 어디까지 `escaping Handler`에서 처리할것이고, 어디까지 함수 내부에서 처리를 한 뒤 `Handler`에게 넘겨줄지를 고민하였습니다.
 > - 의논 결과 전부 다 `Handler`에서 처리하도록 하자고하여 `data`, `response`, `error`를 전부 다 넘겼습니다.
 ```swift
@@ -126,7 +153,7 @@ enum OpenMarketApi {
 
 <br>
 
-## [STEP 2]
+## [[STEP 2]](https://github.com/yagom-academy/ios-open-market/pull/148)
 
 ### 1. `ListCell`을 구현하기 위해 `customCell`을 만들어 등록하는 방식과, `Modern cell configuration` 방식중에 어떤것을 사용할지 고민하였습니다.
 > - `customCell`을 만들어 등록하는 방식이 익숙하여 자주 사용했었는데, 이번에는 `default`로 지원되는 값들이 있고 구현되는 코드가 적은 `Modern cell configuration`방식을 사용하였습니다. 
@@ -171,5 +198,43 @@ override func prepareForReuse() {
 
 <br>
 
+## 오픈마켓 II [[STEP 1]](https://github.com/yagom-academy/ios-open-market/pull/162)
+### 1. 추가한 사진을 삭제하는 방법 & 5개로 제한걸기
+> - 이미지 뷰를 위로 올렸을때 삭제가 되도록 `swipeGesterRecognizer`를 사용하여 만들었습니다. 애니매이션을 사용하여 움직이게끔 하면 더 좋을꺼 같습니다. 
+> - 이전에 `UIPanGesterRecognizer`를 사용했었을 땐 가로 `scrollView`가 잘 동작하지 않는 이슈가 있었습니다.
+> - 이미지 뷰 삭제시 + 버튼이 나오도록 하는 부분을 `if-else`문으로 구현하였습니다. 
+> - 이미지 5개를 추가하면 버튼이 사라지게 되는데, 이후에 이미지를 삭제하면 버튼이 나오지가 않는걸 알게 되어 옵저버 패턴으로 구현되어야 할거 같다는 고민을 하였습니다.
 
+<br>
 
+```swift
+if addImageHorizontalStackView.arrangedSubviews.count == 6 {
+    addImageButton.isHidden = true
+} else {
+    addImageButton.isHidden = false
+}
+```
+
+<br>
+
+## 🥄 삽질한점 🥄
+### 1. 명세서와 example Code의 파라미터가 동일하지 않아서 삽질...🤬🤬
+> - `POST`방식으로 통신했을때 명세서에서의 `Parameter`와 `example code`에서의 네이밍이 달라서 오류 찾느라 삽질을 하였습니다.
+
+---
+
+<br>
+
+## [[STEP 2]](https://github.com/yagom-academy/ios-open-market/pull/171)
+## 🥄 삽질한점 🥄
+### 1. 스크롤 뷰에 관하여 - 지난주 스텝에서 스크롤이 안되는 문제의 연장
+- 스크롤 뷰를 설정할때 스크롤이 되지 않는 상황, 그리고 스크롤은 되지만 안에 컨텐츠가 변하지 않는 상황이 있었습니다. 
+- 문제의 원인은 `frame`과` bound`개념을 잘 알고 `Constraint`를 줘야했는데 그러지 못했던게 원인이였던거 같습니다.
+- 일단 `ContentsLayoutGuide`와 관련된 값을 정확히 주지 못하여 보라색 느낌표가 떳었습니다.(모호한 스크롤뷰의 `ContentsSize`가 모호하다는 에러였습니다.) 
+- 그래서 `ContentsLayoutGuide`와 관련된 `Constraint`를 줬는데 그제서야 스크롤뷰의 `ContentsSize`가 잡혔습니다. 
+- 하지만 스크롤이 움직이지는 않았는대 원인은 `Frame(화면에 보이는 틀)`과 `Bound(내용물)` 사이즈를 같게 주어서 였습니다. 
+- `frame`의 `Constraint`를 수정하자 그제서야 스크롤이 되었습니다. 
+- 하지만 스크롤만 되고 안에 보이는 화면은 변하지 않았는데 원인은 안에 내용물들의 `Constraint`를 바로 상위뷰에 상대적으로 준게아니라 `Root View`에 주어서 스크롤을 해도 위치가 변하지 않는것이였습니다. 
+- 이후 `Constraint`를 수정하자 정상적으로 스크롤이 되었습니다.
+
+<br>
